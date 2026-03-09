@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaWhatsapp, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +12,7 @@ const Contact = () => {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const services = [
     'Social Media Content Creation',
@@ -32,15 +33,15 @@ const Contact = () => {
       link: 'mailto:hello@pokardigital.com'
     },
     {
-      icon: FaPhone,
-      title: 'Phone',
-      content: '+1 (555) 123-4567',
-      link: 'tel:+15551234567'
+      icon: FaWhatsapp,
+      title: 'WhatsApp',
+      content: '+91 79847 69354 / +91 99256 89157',
+      link: 'https://wa.me/917984769354'
     },
     {
       icon: FaMapMarkerAlt,
       title: 'Address',
-      content: '123 Digital Street, Tech City, TC 12345',
+      content: 'Anand, Gujarat, India',
       link: '#'
     }
   ];
@@ -70,17 +71,41 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (validateForm()) {
-      // Here you would typically send the form data to your backend
-      console.log('Form submitted:', formData);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', service: '', message: '' });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitted(false), 5000);
+      setLoading(true);
+      try {
+        console.log('Sending data to Google Sheets...');
+        console.log('URL:', import.meta.env.VITE_GOOGLE_SCRIPT_URL);
+        console.log('Data:', formData);
+        
+        const response = await fetch(import.meta.env.VITE_GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            service: formData.service,
+            message: formData.message,
+            timestamp: new Date().toISOString()
+          })
+        });
+        
+        console.log('Response received');
+        setSubmitted(true);
+        setFormData({ name: '', email: '', service: '', message: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to send message. Please try again.');
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -230,12 +255,22 @@ const Contact = () => {
 
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full btn-primary flex items-center justify-center space-x-2"
+                    disabled={loading}
+                    whileHover={{ scale: loading ? 1 : 1.02 }}
+                    whileTap={{ scale: loading ? 1 : 0.98 }}
+                    className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span>Send Message</span>
-                    <FaPaperPlane />
+                    {loading ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <FaPaperPlane />
+                      </>
+                    )}
                   </motion.button>
                 </form>
               </div>
@@ -289,7 +324,7 @@ const Contact = () => {
                 className="glass rounded-xl overflow-hidden h-64"
               >
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1841374555634!2d-73.98823492346618!3d40.75889097138558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118143.68242922283!2d72.9035342!3d22.5489464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e4e7efd0c8885%3A0xa9a0b93c0c4b5215!2sAnand%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

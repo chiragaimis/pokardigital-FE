@@ -16,22 +16,10 @@ const Home = () => {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      role: 'CEO, TechStart',
+      name: 'Aadit Shah',
+      role: 'Director of Shriji Wealth',
       content: 'Pokar Digital transformed our online presence. Our engagement increased by 300% in just 3 months!',
       image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80'
-    },
-    {
-      name: 'Michael Chen',
-      role: 'Founder, GrowthLab',
-      content: 'The automation solutions saved us 20+ hours per week. Best investment we\'ve made!',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80'
-    },
-    {
-      name: 'Emily Rodriguez',
-      role: 'Marketing Director, BrandCo',
-      content: 'Professional, creative, and results-driven. They truly understand digital growth.',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80'
     }
   ];
 
@@ -98,7 +86,7 @@ const Home = () => {
                 className="rounded-2xl shadow-2xl"
               />
               <div className="absolute -bottom-6 -left-6 glass p-6 rounded-xl">
-                <p className="text-4xl font-bold gradient-text">500+</p>
+                <p className="text-4xl font-bold gradient-text">2+</p>
                 <p className="text-gray-400">Projects Completed</p>
               </div>
             </motion.div>
