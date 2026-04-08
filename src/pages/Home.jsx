@@ -96,18 +96,67 @@ const Home = () => {
 
       <section className="section-padding">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold mb-6 text-center">PDF Preview</h2>
+          
+          <h2 className="text-4xl font-bold text-center mb-10">
+            Our <span className="gradient-text">Resources</span>
+          </h2>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <iframe
-              src="/DataBase_Solution.pdf"
-              className="w-full h-[500px]"
-            ></iframe>
+          <div className="grid md:grid-cols-2 gap-8">
 
-            <iframe
-              src="/PRACTICAL_SOLUTIONS.pdf"
-              className="w-full h-[500px]"
-            ></iframe>
+            {/* PDF 1 */}
+            <div className="glass p-6 rounded-xl text-center hover:scale-105 transition">
+              <h3 className="text-xl font-bold mb-4">
+                Database Solution
+              </h3>
+
+              <p className="text-gray-400 mb-6">
+                Complete guide for database architecture and solutions.
+              </p>
+
+              <a
+                href="/DataBase_Solution.pdf"
+                target="_blank"
+                className="btn-primary block"
+              >
+                View PDF
+              </a>
+
+              <a
+                href="/DataBase_Solution.pdf"
+                download
+                className="btn-secondary mt-3 block"
+              >
+                Download PDF
+              </a>
+            </div>
+
+            {/* PDF 2 */}
+            <div className="glass p-6 rounded-xl text-center hover:scale-105 transition">
+              <h3 className="text-xl font-bold mb-4">
+                Practical Solutions
+              </h3>
+
+              <p className="text-gray-400 mb-6">
+                Real-world practical solutions for business growth.
+              </p>
+
+              <a
+                href="/PRACTICAL_SOLUTIONS.pdf"
+                target="_blank"
+                className="btn-primary block"
+              >
+                View PDF
+              </a>
+
+              <a
+                href="/PRACTICAL_SOLUTIONS.pdf"
+                download
+                className="btn-secondary mt-3 block"
+              >
+                Download PDF
+              </a>
+            </div>
+
           </div>
         </div>
       </section>
