@@ -94,6 +94,24 @@ const Home = () => {
         </div>
       </section>
 
+      <section className="section-padding">
+        <div className="container-custom">
+          <h2 className="text-3xl font-bold mb-6 text-center">PDF Preview</h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <iframe
+              src="/DataBase_Solution.pdf"
+              className="w-full h-[500px]"
+            ></iframe>
+
+            <iframe
+              src="/PRACTICAL_SOLUTIONS.pdf"
+              className="w-full h-[500px]"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       {/* Services Grid */}
       <section className="section-padding">
         <div className="container-custom">
